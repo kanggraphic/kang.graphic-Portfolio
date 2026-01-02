@@ -1,165 +1,192 @@
-import NewspaperHeader from "@/components/NewspaperHeader";
+"use client";
+
+import Navigation from "@/components/Navigation";
+import FadeIn from "@/components/FadeIn";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+// Client list data
+const clients = [
+  "Aēr", "AntMUSIC", "Austen Goodman", "Article One Eyewear",
+  "Better World Fragrance House",
+  "CNND SERVICES", "Chrome Hearts", "Coffee Barista", "Crazy & Santa Muerte",
+  "Drake", "Damon & Charlie Constantinou", "Dali", "Dishan Karu", "DUSK to DAWN",
+  "Ella Thomas", "Ep&Sci",
+  "Formit Studio", "Fox Group",
+  "Gentle Systems", "George Davies", "GONZO - EP",
+  "Honest - EP",
+  "Jordan Chan Realty",
+  "Lululemon",
+  "Minoritep", "March 2004", "Mandatory Attendance",
+  "NOCTA", "Nike Basketball", "Nike Sportswear", "Nabil Elsahr",
+  "Original Creative Agency",
+  "Pyra - EP",
+  "Ray-Ban Meta",
+  "Scout Motors", "S-1 Studios", "SALT & STONE", "SEASONS - EP",
+  "Talgh",
+  "Victor Kinkera",
+  "Woodpecker Coats",
+];
 
 export default function AboutPage() {
+  const { language, t } = useLanguage();
+
   return (
-    <main className="min-h-screen p-4 md:p-8 lg:p-12">
-      <div className="max-w-[1600px] mx-auto">
-        <NewspaperHeader />
+    <>
+      <Navigation />
 
-        <div className="mt-8">
-          <div className="divider-horizontal pb-6 mb-8">
-            <h1 className="headline-large">ABOUT</h1>
-            <p className="headline-small font-normal mt-2">디자이너 소개 및 경력</p>
-          </div>
-
-          {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8">
-            {/* Left Sidebar */}
-            <div className="divider-vertical pr-8">
-              <div className="aspect-square border border-newspaper-divider mb-4 flex items-center justify-center bg-newspaper-bg/50">
-                <span className="caption">[Profile Photo]</span>
-              </div>
-
-              <div className="space-y-4">
-                <div>
-                  <h2 className="headline-small mb-2">Contact</h2>
-                  <div className="text-sm space-y-1">
-                    <p>kang@graphic.com</p>
-                    <p>+82 10-0000-0000</p>
-                  </div>
-                </div>
-
-                <div className="divider-horizontal pt-4">
-                  <h2 className="headline-small mb-2">Social</h2>
-                  <div className="text-sm space-y-1">
-                    <p>Instagram</p>
-                    <p>LinkedIn</p>
-                    <p>Behance</p>
-                  </div>
-                </div>
-
-                <div className="divider-horizontal pt-4">
-                  <h2 className="headline-small mb-2">Skills</h2>
-                  <div className="text-sm space-y-1">
-                    <p>Design Research</p>
-                    <p>Visual Identity</p>
-                    <p>Editorial Design</p>
-                    <p>Web Development</p>
-                    <p>Data Visualization</p>
-                  </div>
-                </div>
-              </div>
+      <main className="min-h-screen">
+        <div className="max-w-screen-2xl mx-auto">
+          {/* Page Header */}
+          <FadeIn>
+            <div className="border-b-1px border-editorial-border p-6 md:p-8">
+              <h1 className="headline-xl mb-2">{t("소개", "About")}</h1>
+              <p className="text-editorial-gray text-sm">
+                {t("프로필 및 이력", "Profile & Experience")}
+              </p>
             </div>
+          </FadeIn>
 
-            {/* Right Main Content */}
-            <div className="space-y-8">
-              {/* Introduction */}
-              <section>
-                <h2 className="headline-medium mb-4">Kang Graphic</h2>
-                <div className="text-newspaper newspaper-column-3">
-                  <p>
-                    저는 시각 디자인과 리서치를 기반으로 작업하는 그래픽 디자이너입니다. 특히 기후변화, 지정학, 그리고 영토성과 같은 복잡한 주제를 시각적으로 풀어내는 것에 관심이 있습니다.
-                  </p>
-                  <p>
-                    제 작업은 주로 디자인 리서치, 데이터 시각화, 그리고 편집 디자인을 중심으로 진행됩니다. 작은 섬나라들의 기후위기 대응 전략, 디지털 국가의 출현, 그리고 영토 없는 국가의 가능성 등을 탐구하며, 이를 통해 새로운 형태의 국가와 주권에 대해 질문합니다.
-                  </p>
-                  <p>
-                    디자인은 단순히 아름다운 것을 만드는 것이 아니라, 복잡한 세계를 이해하고 전달하는 도구라고 믿습니다. 이를 위해 저는 항상 리서치를 기반으로 한 디자인을 추구하며, 데이터와 내러티브를 결합하여 의미 있는 시각적 경험을 만들어내고자 합니다.
-                  </p>
-                </div>
-              </section>
-
-              {/* Experience */}
-              <section className="divider-horizontal pt-8">
-                <h2 className="headline-medium mb-6">Experience</h2>
+          {/* Main Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr]">
+            {/* Sidebar */}
+            <FadeIn delay={0.1}>
+              <div className="p-6 md:p-8 border-b lg:border-b-0 lg:border-r-1px border-editorial-border">
                 <div className="space-y-6">
-                  <article className="divider-horizontal pb-6">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h3 className="headline-small">Independent Design Studio</h3>
-                        <p className="font-gothic">Founder & Creative Director</p>
-                      </div>
-                      <span className="caption">2023 — Present</span>
+                  <div>
+                    <h3 className="text-label mb-3">{t("연락처", "Contact")}</h3>
+                    <div className="text-sm space-y-1">
+                      <p>kang@graphic.com</p>
+                      <p>+82 10-0000-0000</p>
                     </div>
-                    <p className="text-newspaper mt-2">
-                      기후변화, 지정학, 영토성을 주제로 한 디자인 리서치 프로젝트 진행.
-                      투발루, 키리바시, 마셜제도 등 태평양 도서국의 기후 대응 전략 시각화.
-                    </p>
-                  </article>
+                  </div>
 
-                  <article className="divider-horizontal pb-6">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h3 className="headline-small">Design Research Lab</h3>
-                        <p className="font-gothic">Research Designer</p>
-                      </div>
-                      <span className="caption">2021 — 2023</span>
+                  <div className="border-t-1px border-editorial-border pt-6">
+                    <h3 className="text-label mb-3">{t("소셜", "Social")}</h3>
+                    <div className="text-sm space-y-1">
+                      <a href="#" className="block hover:underline">Instagram</a>
+                      <a href="#" className="block hover:underline">LinkedIn</a>
+                      <a href="#" className="block hover:underline">Behance</a>
                     </div>
-                    <p className="text-newspaper mt-2">
-                      데이터 시각화 및 인터랙티브 디자인 프로젝트 참여.
-                      기후 데이터, 이주 패턴, 해양 경계 변화 등을 시각화하는 작업 수행.
-                    </p>
-                  </article>
+                  </div>
 
-                  <article className="divider-horizontal pb-6">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h3 className="headline-small">Editorial Design Studio</h3>
-                        <p className="font-gothic">Graphic Designer</p>
-                      </div>
-                      <span className="caption">2019 — 2021</span>
+                  <div className="border-t-1px border-editorial-border pt-6">
+                    <h3 className="text-label mb-3">{t("전문 분야", "Expertise")}</h3>
+                    <div className="text-sm space-y-1">
+                      <p>{t("디자인 리서치", "Design Research")}</p>
+                      <p>{t("비주얼 아이덴티티", "Visual Identity")}</p>
+                      <p>{t("에디토리얼 디자인", "Editorial Design")}</p>
+                      <p>{t("웹 개발", "Web Development")}</p>
+                      <p>{t("데이터 시각화", "Data Visualization")}</p>
                     </div>
-                    <p className="text-newspaper mt-2">
-                      출판물 디자인, 브랜딩, 타이포그래피 작업.
-                      문화예술 기관 및 비영리 단체의 비주얼 아이덴티티 개발.
-                    </p>
-                  </article>
+                  </div>
                 </div>
-              </section>
+              </div>
+            </FadeIn>
 
-              {/* Education */}
-              <section className="divider-horizontal pt-8">
-                <h2 className="headline-medium mb-6">Education</h2>
-                <div className="space-y-4">
-                  <article>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="headline-small">MFA in Design</h3>
-                        <p className="font-gothic">Seoul National University</p>
+            {/* Main Content */}
+            <FadeIn delay={0.2}>
+              <div className="p-6 md:p-8 space-y-12">
+                {/* Introduction */}
+                <section>
+                  <h2 className="headline-medium mb-4">
+                    {t("편집 디자이너", "Editorial Designer")}
+                  </h2>
+                  <div className="body max-w-3xl space-y-4">
+                    <p>
+                      {t(
+                        "저는 시각 디자인과 리서치를 기반으로 작업하는 그래픽 디자이너입니다. 특히 복잡한 주제를 명확하고 아름답게 시각화하는 것에 관심이 있습니다.",
+                        "I am a graphic designer working with visual design and research. I am particularly interested in visualizing complex topics clearly and beautifully."
+                      )}
+                    </p>
+                    <p>
+                      {t(
+                        "제 작업은 주로 디자인 리서치, 데이터 시각화, 그리고 편집 디자인을 중심으로 진행됩니다. 디자인은 단순히 아름다운 것을 만드는 것이 아니라, 복잡한 세계를 이해하고 전달하는 도구라고 믿습니다.",
+                        "My work mainly focuses on design research, data visualization, and editorial design. I believe design is not simply about creating beautiful things, but a tool for understanding and communicating complex worlds."
+                      )}
+                    </p>
+                  </div>
+                </section>
+
+                {/* Experience */}
+                <section className="border-t-1px border-editorial-border pt-12">
+                  <h2 className="headline-medium mb-6">{t("경력", "Experience")}</h2>
+                  <div className="space-y-6">
+                    {[
+                      {
+                        title: { ko: "독립 디자인 스튜디오", en: "Independent Design Studio" },
+                        role: { ko: "대표 및 크리에이티브 디렉터", en: "Founder & Creative Director" },
+                        period: "2023 — Present",
+                        description: {
+                          ko: "편집 디자인, 브랜딩, 디자인 리서치 프로젝트 진행",
+                          en: "Editorial design, branding, and design research projects"
+                        }
+                      },
+                      {
+                        title: { ko: "디자인 리서치 랩", en: "Design Research Lab" },
+                        role: { ko: "리서치 디자이너", en: "Research Designer" },
+                        period: "2021 — 2023",
+                        description: {
+                          ko: "데이터 시각화 및 인터랙티브 디자인 프로젝트 참여",
+                          en: "Data visualization and interactive design projects"
+                        }
+                      },
+                      {
+                        title: { ko: "에디토리얼 디자인 스튜디오", en: "Editorial Design Studio" },
+                        role: { ko: "그래픽 디자이너", en: "Graphic Designer" },
+                        period: "2019 — 2021",
+                        description: {
+                          ko: "출판물 디자인, 브랜딩, 타이포그래피 작업",
+                          en: "Publication design, branding, typography"
+                        }
+                      },
+                    ].map((exp, index) => (
+                      <article key={index} className="border-b-1px border-editorial-border pb-6">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h3 className="headline-small">{language === 'ko' ? exp.title.ko : exp.title.en}</h3>
+                            <p className="text-sm text-editorial-gray">{language === 'ko' ? exp.role.ko : exp.role.en}</p>
+                          </div>
+                          <span className="text-label text-editorial-gray">{exp.period}</span>
+                        </div>
+                        <p className="text-sm mt-2">{language === 'ko' ? exp.description.ko : exp.description.en}</p>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Education */}
+                <section className="border-t-1px border-editorial-border pt-12">
+                  <h2 className="headline-medium mb-6">{t("학력", "Education")}</h2>
+                  <div className="space-y-4">
+                    {[
+                      { degree: "MFA in Design", school: "Seoul National University", year: "2021" },
+                      { degree: "BFA in Visual Communication", school: "Hongik University", year: "2019" },
+                    ].map((edu, index) => (
+                      <div key={index} className="flex justify-between items-start">
+                        <div>
+                          <h3 className="headline-small">{edu.degree}</h3>
+                          <p className="text-sm text-editorial-gray">{edu.school}</p>
+                        </div>
+                        <span className="text-label text-editorial-gray">{edu.year}</span>
                       </div>
-                      <span className="caption">2021</span>
-                    </div>
-                  </article>
+                    ))}
+                  </div>
+                </section>
 
-                  <article>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="headline-small">BFA in Visual Communication</h3>
-                        <p className="font-gothic">Hongik University</p>
-                      </div>
-                      <span className="caption">2019</span>
-                    </div>
-                  </article>
-                </div>
-              </section>
-
-              {/* Awards */}
-              <section className="divider-horizontal pt-8">
-                <h2 className="headline-medium mb-6">Awards & Recognition</h2>
-                <div className="text-newspaper newspaper-column-2">
-                  <ul className="space-y-2 list-none">
-                    <li>· Red Dot Design Award, Communication Design (2024)</li>
-                    <li>· Tokyo Type Directors Club Annual Awards (2023)</li>
-                    <li>· Korea Design Award, Editorial Design (2023)</li>
-                    <li>· JAGDA New Designer Award (2022)</li>
-                    <li>· Seoul Design Festival, Best Project (2022)</li>
-                  </ul>
-                </div>
-              </section>
-            </div>
+                {/* Client List */}
+                <section className="border-t-1px border-editorial-border pt-12">
+                  <h2 className="headline-medium mb-6">{t("클라이언트", "Clients")}</h2>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-3">
+                    {clients.map((client, index) => (
+                      <p key={index} className="text-sm">{client}</p>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            </FadeIn>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

@@ -2,71 +2,153 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-ligature-full.css');
+
 @layer base {
   :root {
-    --font-gothic: system-ui, -apple-system, "Segoe UI", sans-serif;
-    --font-serif: Georgia, "Times New Roman", serif;
+    --font-wanted: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
   }
 
   * {
-    @apply border-newspaper-divider;
+    @apply border-editorial-border;
   }
 
   body {
-    @apply bg-newspaper-bg text-newspaper-text font-serif;
+    @apply bg-editorial-bg text-editorial-text antialiased;
+    font-family: var(--font-wanted);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-gothic;
+    font-family: var(--font-wanted);
   }
 }
 
 @layer utilities {
+  /* Table Grid System */
+  .table-grid {
+    @apply border border-editorial-border;
+  }
+
+  .table-cell {
+    @apply border-r border-b border-editorial-border p-4 md:p-6;
+  }
+
+  .table-cell:last-child {
+    @apply border-r-0;
+  }
+
+  .table-row:last-child .table-cell {
+    @apply border-b-0;
+  }
+
+  /* Vertical Typography */
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .vertical-text-upright {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+
+  /* Border utilities */
+  .border-1px {
+    border-width: 1px;
+  }
+
+  .border-r-1px {
+    border-right-width: 1px;
+  }
+
+  .border-b-1px {
+    border-bottom-width: 1px;
+  }
+
+  .border-t-1px {
+    border-top-width: 1px;
+  }
+
+  .border-l-1px {
+    border-left-width: 1px;
+  }
+
   .divider-vertical {
-    @apply border-r border-newspaper-divider;
+    border-right-width: 1px;
+    border-color: theme('colors.editorial.border');
   }
 
   .divider-horizontal {
-    @apply border-b border-newspaper-divider;
+    border-bottom-width: 1px;
+    border-color: theme('colors.editorial.border');
   }
 
-  .newspaper-column {
-    column-gap: 1.5rem;
-    column-rule: 1px solid theme('colors.newspaper.divider');
-  }
-
-  .newspaper-column-2 {
-    @apply newspaper-column;
-    column-count: 2;
-  }
-
-  .newspaper-column-3 {
-    @apply newspaper-column;
-    column-count: 3;
-  }
-
-  .text-newspaper {
-    @apply text-newspaper-text leading-[1.6] tracking-tighter;
+  /* Typography Scale */
+  .text-editorial {
+    @apply text-editorial-text leading-[1.6] tracking-tight;
     font-size: 0.9375rem;
   }
 
+  .text-label {
+    @apply text-[10px] uppercase tracking-[0.1em] font-medium;
+  }
+
+  .text-index {
+    @apply text-xs font-medium;
+  }
+
+  .headline-xl {
+    @apply font-wanted font-medium text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight;
+  }
+
   .headline-large {
-    @apply font-gothic font-bold text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight;
+    @apply font-wanted font-medium text-4xl md:text-5xl leading-[0.95] tracking-tight;
   }
 
   .headline-medium {
-    @apply font-gothic font-bold text-2xl md:text-3xl lg:text-4xl leading-tight tracking-tight;
+    @apply font-wanted font-medium text-2xl md:text-3xl leading-[1.1] tracking-tight;
   }
 
   .headline-small {
-    @apply font-gothic font-bold text-xl md:text-2xl leading-tight;
+    @apply font-wanted font-medium text-xl md:text-2xl leading-[1.2] tracking-tight;
+  }
+
+  .body-large {
+    @apply text-base md:text-lg leading-[1.5] tracking-tight;
+  }
+
+  .body {
+    @apply text-sm md:text-base leading-[1.6] tracking-tight;
   }
 
   .caption {
-    @apply font-gothic text-xs text-newspaper-gray;
+    @apply text-xs text-editorial-gray uppercase tracking-wider;
   }
 
-  .side-box {
-    @apply border border-newspaper-divider p-3 md:p-4;
+  /* Layout utilities */
+  .editorial-sidebar {
+    @apply w-full lg:w-64 xl:w-80;
+  }
+
+  .editorial-main {
+    @apply flex-1 min-w-0;
+  }
+
+  .content-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1px bg-editorial-border;
+  }
+
+  .content-grid > * {
+    @apply bg-editorial-bg;
+  }
+
+  /* Divide utilities */
+  .divide-y-1px > * + * {
+    border-top-width: 1px;
+    border-color: theme('colors.editorial.border');
+  }
+
+  .divide-editorial-border > * + * {
+    border-color: theme('colors.editorial.border');
   }
 }

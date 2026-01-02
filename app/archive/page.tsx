@@ -1,97 +1,140 @@
-import NewspaperHeader from "@/components/NewspaperHeader";
+"use client";
 
+import { useState } from "react";
+import Link from "next/link";
+import Navigation from "@/components/Navigation";
+import FadeIn from "@/components/FadeIn";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+type Category = "All" | "Print" | "Digital" | "Identity" | "Editorial";
+
+// Temporary mock data
 const projects = [
-  {
-    id: 1,
-    title: "Territory in Flux",
-    subtitle: "기후변화와 영토 주권",
-    category: "Design Research",
-    year: "2025",
-    description: "작은 섬나라들의 주권이 기후변화와 지정학적 협상 속에서 어떻게 재정의되는지 탐구하는 프로젝트"
-  },
-  {
-    id: 2,
-    title: "Rising Nations Initiative",
-    subtitle: "디지털 국가 프로젝트",
-    category: "Interaction Design",
-    year: "2024",
-    description: "투발루의 메타버스 국가 건설과 디지털 시민권에 대한 인터랙티브 경험 디자인"
-  },
-  {
-    id: 3,
-    title: "Post-Territorial State",
-    subtitle: "영토 없는 국가",
-    category: "Visual Identity",
-    year: "2024",
-    description: "새로운 국가 정체성을 위한 비주얼 시스템 및 브랜딩 프로젝트"
-  },
-  {
-    id: 4,
-    title: "Climate Migration Atlas",
-    subtitle: "기후 이주 지도",
-    category: "Data Visualization",
-    year: "2023",
-    description: "전 세계 기후 난민 이동 경로와 데이터를 시각화한 인터랙티브 아틀라스"
-  },
-  {
-    id: 5,
-    title: "Maritime Sovereignty",
-    subtitle: "해양 주권 타임라인",
-    category: "Editorial Design",
-    year: "2023",
-    description: "UNCLOS부터 현재까지 해양법의 변화를 추적하는 타임라인 북"
-  },
-  {
-    id: 6,
-    title: "Small Island Developing States",
-    subtitle: "작은 섬나라 연구",
-    category: "Research Publication",
-    year: "2022",
-    description: "기후위기 최전선에 있는 태평양 도서국들의 생존 전략 리서치 출판물"
-  },
+  { id: "1", year: "2025", title: { ko: "Kao／Primavista 젤 세안", en: "Kao／Primavista Gel Cleanser" }, category: "Digital" as Category },
+  { id: "2", year: "2025", title: { ko: "MACNICA GR 제작", en: "MACNICA GR Production" }, category: "Print" as Category },
+  { id: "3", year: "2024", title: { ko: "ORIX HOTELS 캠페인", en: "ORIX HOTELS Campaign" }, category: "Digital" as Category },
+  { id: "4", year: "2024", title: { ko: "MEDULLA 리브랜딩", en: "MEDULLA Rebranding" }, category: "Identity" as Category },
+  { id: "5", year: "2024", title: { ko: "디지털 투발루 아이덴티티", en: "Digital Tuvalu Identity" }, category: "Identity" as Category },
+  { id: "6", year: "2024", title: { ko: "Territory in Flux", en: "Territory in Flux" }, category: "Editorial" as Category },
+  { id: "7", year: "2023", title: { ko: "Rising Nations Initiative", en: "Rising Nations Initiative" }, category: "Print" as Category },
+  { id: "8", year: "2023", title: { ko: "Climate Data Visualization", en: "Climate Data Visualization" }, category: "Digital" as Category },
 ];
 
 export default function ArchivePage() {
+  const { language, t } = useLanguage();
+  const [selectedCategory, setSelectedCategory] = useState<Category>("All");
+
+  const categories: Category[] = ["All", "Print", "Digital", "Identity", "Editorial"];
+
+  const filteredProjects = selectedCategory === "All"
+    ? projects
+    : projects.filter(p => p.category === selectedCategory);
+
+  const projectsByYear = filteredProjects.reduce((acc, project) => {
+    if (!acc[project.year]) {
+      acc[project.year] = [];
+    }
+    acc[project.year].push(project);
+    return acc;
+  }, {} as Record<string, typeof projects>);
+
+  const years = Object.keys(projectsByYear).sort((a, b) => parseInt(b) - parseInt(a));
+
   return (
-    <main className="min-h-screen p-4 md:p-8 lg:p-12">
-      <div className="max-w-[1600px] mx-auto">
-        <NewspaperHeader />
+    <>
+      <Navigation />
 
-        <div className="mt-8">
-          <div className="divider-horizontal pb-6 mb-8">
-            <h1 className="headline-large">ARCHIVE</h1>
-            <p className="headline-small font-normal mt-2">프로젝트 아카이브</p>
-          </div>
+      <main className="min-h-screen">
+        <div className="max-w-screen-2xl mx-auto">
+          {/* Page Header */}
+          <FadeIn>
+            <div className="border-b-1px border-editorial-border">
+              <div className="p-6 md:p-8">
+                <h1 className="headline-xl mb-2">{t("아카이브", "Archive")}</h1>
+                <p className="text-editorial-gray text-sm">
+                  {t("모든 프로젝트 연대기", "Complete Project Timeline")}
+                </p>
+              </div>
 
-          {/* Project Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <article key={project.id} className="divider-horizontal pb-6 group cursor-pointer">
-                {/* Project Number */}
-                <div className="flex items-start justify-between mb-3">
-                  <span className="w-8 h-8 bg-newspaper-text text-newspaper-bg flex items-center justify-center font-gothic font-bold">
-                    {project.id}
-                  </span>
-                  <span className="caption">{project.year}</span>
+              {/* Filter */}
+              <div className="flex border-t-1px border-editorial-border">
+                {categories.map((category, index) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`
+                      flex-1 p-4 text-label transition-colors duration-200
+                      ${index < categories.length - 1 ? 'border-r-1px border-editorial-border' : ''}
+                      ${selectedCategory === category
+                        ? 'bg-editorial-text text-editorial-bg'
+                        : 'hover:bg-editorial-paper'
+                      }
+                    `}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Project List by Year */}
+          <div className="divide-y-1px divide-editorial-border">
+            {years.map((year, yearIndex) => (
+              <FadeIn key={year} delay={yearIndex * 0.05}>
+                <div className="grid grid-cols-1 md:grid-cols-[120px_1fr]">
+                  {/* Year Column */}
+                  <div className="p-6 md:p-8 border-b md:border-b-0 md:border-r-1px border-editorial-border">
+                    <h2 className="headline-medium">{year}</h2>
+                    <p className="text-label text-editorial-gray mt-1">
+                      {projectsByYear[year].length} {t("프로젝트", "Projects")}
+                    </p>
+                  </div>
+
+                  {/* Projects Column */}
+                  <div className="divide-y-1px divide-editorial-border">
+                    {projectsByYear[year].map((project, index) => (
+                      <Link key={project.id} href={`/project/${project.id}`}>
+                        <div className="p-6 md:p-8 hover:bg-editorial-paper transition-colors duration-300 group">
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <h3 className="headline-small group-hover:underline mb-1">
+                                {language === 'ko' ? project.title.ko : project.title.en}
+                              </h3>
+                              <p className="text-label text-editorial-gray">
+                                {project.category}
+                              </p>
+                            </div>
+                            <span className="text-editorial-gray">→</span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-
-                {/* Image Placeholder */}
-                <div className="aspect-[4/3] border border-newspaper-divider mb-4 flex items-center justify-center bg-newspaper-bg/50 group-hover:border-newspaper-text transition-colors">
-                  <span className="caption">[Project Image]</span>
-                </div>
-
-                {/* Project Info */}
-                <div className="space-y-2">
-                  <p className="caption uppercase">{project.category}</p>
-                  <h2 className="headline-small group-hover:underline">{project.title}</h2>
-                  <h3 className="font-gothic text-base">{project.subtitle}</h3>
-                  <p className="text-newspaper text-sm leading-relaxed">{project.description}</p>
-                </div>
-              </article>
+              </FadeIn>
             ))}
           </div>
+
+          {/* Summary */}
+          <div className="border-t-1px border-editorial-border p-6 md:p-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div>
+                <h3 className="text-label mb-2">{t("전체", "Total")}</h3>
+                <p className="text-2xl font-medium">{filteredProjects.length}</p>
+              </div>
+              {categories.slice(1).map(category => (
+                <div key={category}>
+                  <h3 className="text-label mb-2">{category}</h3>
+                  <p className="text-2xl font-medium">
+                    {projects.filter(p => p.category === category).length}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
