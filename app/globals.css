@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-gothic: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-serif: Georgia, "Times New Roman", serif;
+  }
+
+  * {
+    @apply border-newspaper-divider;
+  }
+
+  body {
+    @apply bg-newspaper-bg text-newspaper-text font-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-gothic;
+  }
+}
+
+@layer utilities {
+  .divider-vertical {
+    @apply border-r border-newspaper-divider;
+  }
+
+  .divider-horizontal {
+    @apply border-b border-newspaper-divider;
+  }
+
+  .newspaper-column {
+    column-gap: 1.5rem;
+    column-rule: 1px solid theme('colors.newspaper.divider');
+  }
+
+  .newspaper-column-2 {
+    @apply newspaper-column;
+    column-count: 2;
+  }
+
+  .newspaper-column-3 {
+    @apply newspaper-column;
+    column-count: 3;
+  }
+
+  .text-newspaper {
+    @apply text-newspaper-text leading-[1.6] tracking-tighter;
+    font-size: 0.9375rem;
+  }
+
+  .headline-large {
+    @apply font-gothic font-bold text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight;
+  }
+
+  .headline-medium {
+    @apply font-gothic font-bold text-2xl md:text-3xl lg:text-4xl leading-tight tracking-tight;
+  }
+
+  .headline-small {
+    @apply font-gothic font-bold text-xl md:text-2xl leading-tight;
+  }
+
+  .caption {
+    @apply font-gothic text-xs text-newspaper-gray;
+  }
+
+  .side-box {
+    @apply border border-newspaper-divider p-3 md:p-4;
+  }
+}
