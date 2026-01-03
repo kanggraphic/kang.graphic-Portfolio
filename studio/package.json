@@ -5,9 +5,9 @@
   "main": "package.json",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "sanity dev",
-    "start": "sanity start",
-    "build": "sanity build",
+    "dev": "sanity dev --no-auto-updates",
+    "start": "sanity start --no-auto-updates",
+    "build": "sanity build --no-auto-updates",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy"
   },
