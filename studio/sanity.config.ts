@@ -1,11 +1,11 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemas'
+import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'Kang Graphic Portfolio',
+  title: 'kang.graphic.portfolio',
 
   projectId: 'mhicus98',
   dataset: 'production',

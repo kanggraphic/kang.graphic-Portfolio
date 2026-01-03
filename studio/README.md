@@ -1,31 +1,9 @@
-# Kang Graphic Portfolio - Sanity Studio
+# Sanity Clean Content Studio
 
-Content management system for the portfolio website.
+Congratulations, you have now installed the Sanity Content Studio, an open-source real-time content editing environment connected to the Sanity backend.
 
-## Getting Started
+Now you can do the following things:
 
-1. Install dependencies:
-```bash
-npm install
-```
-
-2. Start development server:
-```bash
-npm run dev
-```
-
-3. Deploy studio:
-```bash
-npm run deploy
-```
-
-## Schemas
-
-- **Project**: Portfolio projects with bilingual content
-- **Article**: Blog posts and editorial content
-- **About**: Profile and experience information
-
-## Configuration
-
-- Project ID: `mhicus98`
-- Dataset: `production`
+- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
+- [Join the Sanity community](https://www.sanity.io/community/join?utm_source=readme)
+- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
