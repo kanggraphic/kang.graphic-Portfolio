@@ -52,10 +52,10 @@ export default function ArticleDetailClient({ article, slug }: { article: any; s
               {/* Main Header */}
               <div className="p-6 md:p-8">
                 <div className="max-w-3xl">
-                  <h1 className="text-2xl md:text-3xl font-medium mb-4 leading-tight">
+                  <h1 className="headline-large mb-3">
                     {language === 'ko' ? article.title.ko : article.title.en}
                   </h1>
-                  <p className="text-base text-editorial-gray leading-relaxed">
+                  <p className="text-sm text-editorial-gray leading-[1.4]">
                     {language === 'ko' ? article.excerpt.ko : article.excerpt.en}
                   </p>
                 </div>
@@ -82,8 +82,8 @@ export default function ArticleDetailClient({ article, slug }: { article: any; s
           <div className="border-b-1px border-editorial-border p-6 md:p-8">
             <div className="max-w-3xl mx-auto">
               <article className="prose prose-editorial">
-                {paragraphs.map((paragraph, index) => (
-                  <p key={index} className="text-base leading-relaxed mb-6 last:mb-0">
+                {paragraphs.map((paragraph: string, index: number) => (
+                  <p key={index} className="text-sm leading-[1.5] mb-4 last:mb-0">
                     {paragraph}
                   </p>
                 ))}

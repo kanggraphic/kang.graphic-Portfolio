@@ -121,12 +121,12 @@ export default function ArchivePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div>
                 <h3 className="text-label mb-2">{t("전체", "Total")}</h3>
-                <p className="text-2xl font-medium">{filteredProjects.length}</p>
+                <p className="text-lg font-medium">{filteredProjects.length}</p>
               </div>
               {categories.slice(1).map(category => (
                 <div key={category}>
                   <h3 className="text-label mb-2">{category}</h3>
-                  <p className="text-2xl font-medium">
+                  <p className="text-lg font-medium">
                     {projects.filter(p => p.category === category).length}
                   </p>
                 </div>

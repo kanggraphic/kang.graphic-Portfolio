@@ -83,46 +83,47 @@
     border-color: theme('colors.editorial.border');
   }
 
-  /* Typography Scale */
+  /* Typography Scale - Dense & Compact */
   .text-editorial {
-    @apply text-editorial-text leading-[1.6] tracking-tight;
-    font-size: 0.9375rem;
+    @apply text-editorial-text leading-[1.4] tracking-tight;
+    font-size: 0.875rem;
   }
 
   .text-label {
-    @apply text-[10px] uppercase tracking-[0.1em] font-medium;
+    @apply text-[10px] uppercase tracking-[0.08em] font-medium leading-[1.3];
   }
 
   .text-index {
-    @apply text-xs font-medium;
+    @apply text-xs font-medium leading-[1.3];
   }
 
+  /* Reduced headline sizes - no large text */
   .headline-xl {
-    @apply font-wanted font-medium text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight;
+    @apply font-wanted font-medium text-xl md:text-2xl leading-[1.2] tracking-[-0.01em];
   }
 
   .headline-large {
-    @apply font-wanted font-medium text-4xl md:text-5xl leading-[0.95] tracking-tight;
+    @apply font-wanted font-medium text-lg md:text-xl leading-[1.25] tracking-[-0.01em];
   }
 
   .headline-medium {
-    @apply font-wanted font-medium text-2xl md:text-3xl leading-[1.1] tracking-tight;
+    @apply font-wanted font-medium text-base md:text-lg leading-[1.3] tracking-tight;
   }
 
   .headline-small {
-    @apply font-wanted font-medium text-xl md:text-2xl leading-[1.2] tracking-tight;
+    @apply font-wanted font-medium text-sm md:text-base leading-[1.35] tracking-tight;
   }
 
   .body-large {
-    @apply text-base md:text-lg leading-[1.5] tracking-tight;
+    @apply text-sm md:text-base leading-[1.4] tracking-tight;
   }
 
   .body {
-    @apply text-sm md:text-base leading-[1.6] tracking-tight;
+    @apply text-xs md:text-sm leading-[1.45] tracking-tight;
   }
 
   .caption {
-    @apply text-xs text-editorial-gray uppercase tracking-wider;
+    @apply text-[10px] text-editorial-gray uppercase tracking-wider leading-[1.3];
   }
 
   /* Layout utilities */
