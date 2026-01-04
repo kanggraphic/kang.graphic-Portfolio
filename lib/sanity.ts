@@ -55,6 +55,46 @@ export interface Article {
   coverImage?: SanityImageAsset;
 }
 
+export interface About {
+  _id: string;
+  _type: 'about';
+  name: {
+    ko: string;
+    en: string;
+  };
+  role: {
+    ko: string;
+    en: string;
+  };
+  bio: {
+    ko: string;
+    en: string;
+  };
+  email?: string;
+  phone?: string;
+  social?: {
+    instagram?: string;
+    linkedin?: string;
+    behance?: string;
+  };
+  expertise?: Array<{
+    ko: string;
+    en: string;
+  }>;
+  experience?: Array<{
+    title: { ko: string; en: string };
+    role: { ko: string; en: string };
+    period: string;
+    description: { ko: string; en: string };
+  }>;
+  education?: Array<{
+    degree: string;
+    school: string;
+    year: string;
+  }>;
+  clients?: string[];
+}
+
 /**
  * Execute a GROQ query against Sanity API
  */
@@ -145,5 +185,20 @@ export const queries = {
     excerpt,
     coverImage,
     content
+  }`,
+
+  // Get about data
+  about: `*[_type == "about"][0] {
+    _id,
+    name,
+    role,
+    bio,
+    email,
+    phone,
+    social,
+    expertise,
+    experience,
+    education,
+    clients
   }`,
 };
