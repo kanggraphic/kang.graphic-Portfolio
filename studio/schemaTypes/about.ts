@@ -8,7 +8,11 @@ export default defineType({
     defineField({
       name: 'name',
       title: 'Name',
-      type: 'string',
+      type: 'object',
+      fields: [
+        {name: 'ko', type: 'string', title: 'Korean'},
+        {name: 'en', type: 'string', title: 'English'},
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -19,27 +23,26 @@ export default defineType({
         {name: 'ko', type: 'string', title: 'Korean'},
         {name: 'en', type: 'string', title: 'English'},
       ],
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'bio',
       title: 'Bio',
       type: 'object',
       fields: [
-        {name: 'ko', type: 'text', title: 'Korean', rows: 5},
-        {name: 'en', type: 'text', title: 'English', rows: 5},
+        {name: 'ko', type: 'text', title: 'Korean', rows: 8},
+        {name: 'en', type: 'text', title: 'English', rows: 8},
       ],
-    }),
-    defineField({
-      name: 'profileImage',
-      title: 'Profile Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'email',
       title: 'Email',
+      type: 'string',
+    }),
+    defineField({
+      name: 'phone',
+      title: 'Phone',
       type: 'string',
     }),
     defineField({
@@ -48,9 +51,22 @@ export default defineType({
       type: 'object',
       fields: [
         {name: 'instagram', type: 'url', title: 'Instagram'},
-        {name: 'behance', type: 'url', title: 'Behance'},
         {name: 'linkedin', type: 'url', title: 'LinkedIn'},
-        {name: 'github', type: 'url', title: 'GitHub'},
+        {name: 'behance', type: 'url', title: 'Behance'},
+      ],
+    }),
+    defineField({
+      name: 'expertise',
+      title: 'Expertise',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {name: 'ko', type: 'string', title: 'Korean'},
+            {name: 'en', type: 'string', title: 'English'},
+          ],
+        },
       ],
     }),
     defineField({
@@ -61,7 +77,6 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            {name: 'year', type: 'string', title: 'Year'},
             {
               name: 'title',
               type: 'object',
@@ -72,14 +87,15 @@ export default defineType({
               ],
             },
             {
-              name: 'company',
+              name: 'role',
               type: 'object',
-              title: 'Company',
+              title: 'Role',
               fields: [
                 {name: 'ko', type: 'string', title: 'Korean'},
                 {name: 'en', type: 'string', title: 'English'},
               ],
             },
+            {name: 'period', type: 'string', title: 'Period'},
             {
               name: 'description',
               type: 'object',
@@ -94,8 +110,23 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'skills',
-      title: 'Skills',
+      name: 'education',
+      title: 'Education',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {name: 'degree', type: 'string', title: 'Degree'},
+            {name: 'school', type: 'string', title: 'School'},
+            {name: 'year', type: 'string', title: 'Year'},
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'clients',
+      title: 'Clients',
       type: 'array',
       of: [{type: 'string'}],
       options: {
@@ -105,9 +136,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'name',
-      subtitle: 'role.en',
-      media: 'profileImage',
+      title: 'name.ko',
+      subtitle: 'role.ko',
     },
   },
 })
