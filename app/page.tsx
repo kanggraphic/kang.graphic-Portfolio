@@ -54,8 +54,8 @@ const mockProjects = [
 ];
 
 export default async function Home() {
-  // Try to fetch from Sanity, fallback to mock data
-  let projects: Project[] = mockProjects;
+  // Fetch from Sanity only
+  let projects: Project[] = [];
 
   try {
     const sanityProjects = await sanityFetch<Project[]>(queries.allProjects);
@@ -63,7 +63,12 @@ export default async function Home() {
       projects = sanityProjects;
     }
   } catch (error) {
-    console.log('Using mock data - Sanity not configured yet');
+    console.log('Failed to fetch from Sanity:', error);
+  }
+
+  // Show mock data only in development
+  if (projects.length === 0 && process.env.NODE_ENV === 'development') {
+    projects = mockProjects;
   }
 
   return <HomeClient projects={projects} />;

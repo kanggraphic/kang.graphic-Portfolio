@@ -40,56 +40,69 @@ export default function HomeClient({ projects }: HomeClientProps) {
 
           {/* Project Grid - Table Style */}
           <div className="grid grid-cols-1">
-            {projects.map((project, index) => (
-              <FadeIn key={project._id} delay={index * 0.05}>
-                <Link href={`/project/${project._id}`}>
-                  <article className="grid grid-cols-1 md:grid-cols-[120px_1fr_200px] border-b-1px border-editorial-border hover:bg-editorial-paper transition-colors duration-300 group">
-                    {/* Date Column */}
-                    <div className="p-4 md:p-6 border-b md:border-b-0 md:border-r-1px border-editorial-border">
-                      <span className="text-label text-editorial-gray">
-                        {project.date}
-                      </span>
-                    </div>
+            {projects.length === 0 ? (
+              <FadeIn>
+                <div className="border-b-1px border-editorial-border p-12 md:p-16 text-center">
+                  <p className="text-editorial-gray text-sm mb-2">
+                    {t("아직 프로젝트가 없습니다", "No projects yet")}
+                  </p>
+                  <p className="text-xs text-editorial-gray">
+                    {t("Sanity Studio에서 프로젝트를 추가해주세요", "Please add projects in Sanity Studio")}
+                  </p>
+                </div>
+              </FadeIn>
+            ) : (
+              projects.map((project, index) => (
+                <FadeIn key={project._id} delay={index * 0.05}>
+                  <Link href={`/project/${project._id}`}>
+                    <article className="grid grid-cols-1 md:grid-cols-[120px_1fr_200px] border-b-1px border-editorial-border hover:bg-editorial-paper transition-colors duration-300 group">
+                      {/* Date Column */}
+                      <div className="p-4 md:p-6 border-b md:border-b-0 md:border-r-1px border-editorial-border">
+                        <span className="text-label text-editorial-gray">
+                          {project.date}
+                        </span>
+                      </div>
 
-                    {/* Content Column */}
-                    <div className="p-4 md:p-6 border-b md:border-b-0 md:border-r-1px border-editorial-border">
-                      <div className="space-y-3">
-                        <div>
-                          <h2 className="headline-small mb-1 group-hover:underline">
-                            {language === 'ko' ? project.title.ko : project.title.en}
-                          </h2>
-                          <p className="text-sm text-editorial-gray">
-                            {language === 'ko' ? project.category.ko : project.category.en}
-                          </p>
-                        </div>
+                      {/* Content Column */}
+                      <div className="p-4 md:p-6 border-b md:border-b-0 md:border-r-1px border-editorial-border">
+                        <div className="space-y-3">
+                          <div>
+                            <h2 className="headline-small mb-1 group-hover:underline">
+                              {language === 'ko' ? project.title.ko : project.title.en}
+                            </h2>
+                            <p className="text-sm text-editorial-gray">
+                              {language === 'ko' ? project.category.ko : project.category.en}
+                            </p>
+                          </div>
 
-                        <div className="flex flex-wrap gap-2">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-label px-2 py-1 border-1px border-editorial-border"
-                            >
-                              {tag}
-                            </span>
-                          ))}
+                          <div className="flex flex-wrap gap-2">
+                            {project.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="text-label px-2 py-1 border-1px border-editorial-border"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Index Column */}
-                    <div className="p-4 md:p-6 flex items-center justify-between md:justify-center">
-                      <span className="text-index text-editorial-gray md:hidden">
-                        {t("프로젝트", "Project")} #{index + 1}
-                      </span>
-                      <span className="text-index hidden md:block">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <span className="text-editorial-gray md:hidden">→</span>
-                    </div>
-                  </article>
-                </Link>
-              </FadeIn>
-            ))}
+                      {/* Index Column */}
+                      <div className="p-4 md:p-6 flex items-center justify-between md:justify-center">
+                        <span className="text-index text-editorial-gray md:hidden">
+                          {t("프로젝트", "Project")} #{index + 1}
+                        </span>
+                        <span className="text-index hidden md:block">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="text-editorial-gray md:hidden">→</span>
+                      </div>
+                    </article>
+                  </Link>
+                </FadeIn>
+              ))
+            )}
           </div>
 
           {/* Footer Info */}
@@ -97,7 +110,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <h3 className="text-label mb-2">{t("총 프로젝트", "Total Projects")}</h3>
-                <p className="text-2xl font-medium">{projects.length}</p>
+                <p className="text-lg font-medium">{projects.length}</p>
               </div>
               <div>
                 <h3 className="text-label mb-2">{t("최근 업데이트", "Last Updated")}</h3>
