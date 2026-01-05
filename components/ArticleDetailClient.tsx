@@ -19,7 +19,10 @@ export default function ArticleDetailClient({ article, slug }: { article: any; s
   const title = language === 'ko' ? article.title?.ko : article.title?.en;
   const excerpt = language === 'ko' ? article.excerpt?.ko : article.excerpt?.en;
   const content = language === 'ko' ? article.content?.ko : article.content?.en;
-  const paragraphs = content ? content.split('\n\n') : [];
+
+  // Handle content splitting safely - ensure content is a string
+  const paragraphs = content && typeof content === 'string' ? content.split('\n\n') : [];
+
   const date = article.publishedAt || article.date;
   const readTime = article.readTime || '5 min';
 

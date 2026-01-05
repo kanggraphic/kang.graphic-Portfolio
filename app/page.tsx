@@ -54,12 +54,13 @@ const mockProjects = [
 ];
 
 export default async function Home() {
-  // Fetch from Sanity only
+  // Fetch from Sanity with proper null handling
   let projects: Project[] = [];
 
   try {
     const sanityProjects = await sanityFetch<Project[]>(queries.allProjects);
-    if (sanityProjects && sanityProjects.length > 0) {
+    // Ensure we have a valid array
+    if (Array.isArray(sanityProjects) && sanityProjects.length > 0) {
       projects = sanityProjects;
     }
   } catch (error) {
@@ -71,5 +72,6 @@ export default async function Home() {
     projects = mockProjects;
   }
 
-  return <HomeClient projects={projects} />;
+  // Always pass an array (never null/undefined)
+  return <HomeClient projects={projects || []} />;
 }
