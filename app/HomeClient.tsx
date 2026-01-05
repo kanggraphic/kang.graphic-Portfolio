@@ -68,23 +68,25 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         <div className="space-y-3">
                           <div>
                             <h2 className="headline-small mb-1 group-hover:underline">
-                              {language === 'ko' ? project.title.ko : project.title.en}
+                              {language === 'ko' ? project.title?.ko : project.title?.en}
                             </h2>
                             <p className="text-sm text-editorial-gray">
-                              {language === 'ko' ? project.category.ko : project.category.en}
+                              {language === 'ko' ? project.category?.ko : project.category?.en}
                             </p>
                           </div>
 
-                          <div className="flex flex-wrap gap-2">
-                            {project.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="text-label px-2 py-1 border-1px border-editorial-border"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
+                          {project.tags && project.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                              {project.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="text-label px-2 py-1 border-1px border-editorial-border"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       </div>
 
