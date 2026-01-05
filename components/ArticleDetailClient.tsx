@@ -15,8 +15,13 @@ export default function ArticleDetailClient({ article, slug }: { article: any; s
     );
   }
 
-  const content = language === 'ko' ? article.content.ko : article.content.en;
-  const paragraphs = content.split('\n\n');
+  // Safe data extraction with fallbacks
+  const title = language === 'ko' ? article.title?.ko : article.title?.en;
+  const excerpt = language === 'ko' ? article.excerpt?.ko : article.excerpt?.en;
+  const content = language === 'ko' ? article.content?.ko : article.content?.en;
+  const paragraphs = content ? content.split('\n\n') : [];
+  const date = article.publishedAt || article.date;
+  const readTime = article.readTime || '5 min';
 
   return (
     <main className="min-h-screen">
@@ -28,36 +33,42 @@ export default function ArticleDetailClient({ article, slug }: { article: any; s
               {/* Meta Sidebar */}
               <div className="p-6 md:p-8 border-b md:border-b-0 md:border-r-1px border-editorial-border">
                 <div className="space-y-6">
-                  <div>
-                    <h3 className="text-label mb-2">{t("날짜", "Date")}</h3>
-                    <p className="text-sm">
-                      {new Date(article.date).toLocaleDateString(language === 'ko' ? 'ko-KR' : 'en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                      })}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-label mb-2">{t("카테고리", "Category")}</h3>
-                    <p className="text-sm capitalize">{article.category}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-label mb-2">{t("읽는 시간", "Read Time")}</h3>
-                    <p className="text-sm">{article.readTime}</p>
-                  </div>
+                  {date && (
+                    <div>
+                      <h3 className="text-label mb-2">{t("날짜", "Date")}</h3>
+                      <p className="text-sm">
+                        {new Date(date).toLocaleDateString(language === 'ko' ? 'ko-KR' : 'en-US', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        })}
+                      </p>
+                    </div>
+                  )}
+                  {article.category && (
+                    <div>
+                      <h3 className="text-label mb-2">{t("카테고리", "Category")}</h3>
+                      <p className="text-sm capitalize">{article.category}</p>
+                    </div>
+                  )}
+                  {readTime && (
+                    <div>
+                      <h3 className="text-label mb-2">{t("읽는 시간", "Read Time")}</h3>
+                      <p className="text-sm">{readTime}</p>
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Main Header */}
               <div className="p-6 md:p-8">
                 <div className="max-w-3xl">
-                  <h1 className="headline-large mb-3">
-                    {language === 'ko' ? article.title.ko : article.title.en}
-                  </h1>
-                  <p className="text-sm text-editorial-gray leading-[1.4]">
-                    {language === 'ko' ? article.excerpt.ko : article.excerpt.en}
-                  </p>
+                  {title && (
+                    <h1 className="headline-large mb-3">{title}</h1>
+                  )}
+                  {excerpt && (
+                    <p className="text-sm text-editorial-gray leading-[1.4]">{excerpt}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -78,19 +89,21 @@ export default function ArticleDetailClient({ article, slug }: { article: any; s
         )}
 
         {/* Article Content */}
-        <FadeIn delay={0.2}>
-          <div className="border-b-1px border-editorial-border p-6 md:p-8">
-            <div className="max-w-3xl mx-auto">
-              <article className="prose prose-editorial">
-                {paragraphs.map((paragraph: string, index: number) => (
-                  <p key={index} className="text-sm leading-[1.5] mb-4 last:mb-0">
-                    {paragraph}
-                  </p>
-                ))}
-              </article>
+        {paragraphs.length > 0 && (
+          <FadeIn delay={0.2}>
+            <div className="border-b-1px border-editorial-border p-6 md:p-8">
+              <div className="max-w-3xl mx-auto">
+                <article className="prose prose-editorial">
+                  {paragraphs.map((paragraph: string, index: number) => (
+                    <p key={index} className="text-sm leading-[1.5] mb-4 last:mb-0">
+                      {paragraph}
+                    </p>
+                  ))}
+                </article>
+              </div>
             </div>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        )}
 
         {/* Navigation */}
         <div className="border-t-1px border-editorial-border p-6 md:p-8">
