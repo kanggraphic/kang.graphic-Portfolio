@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
+import Masthead from "@/components/Masthead";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ArticleDetailClient({ article, slug }: { article: any; slug: string }) {
@@ -9,127 +10,84 @@ export default function ArticleDetailClient({ article, slug }: { article: any; s
 
   if (!article) {
     return (
-      <main className="min-h-screen flex items-center justify-center">
-        <p className="text-editorial-gray">{t("아티클을 찾을 수 없습니다", "Article not found")}</p>
+      <main className="min-h-screen flex items-center justify-center type-mono italic">
+        {t("아티클을 찾을 수 없습니다", "ARTICLE NOT FOUND")}
       </main>
     );
   }
 
-  // Safe data extraction with fallbacks
   const title = language === 'ko' ? article.title?.ko : article.title?.en;
   const excerpt = language === 'ko' ? article.excerpt?.ko : article.excerpt?.en;
   const content = language === 'ko' ? article.content?.ko : article.content?.en;
-
-  // Handle content splitting safely - ensure content is a string
   const paragraphs = content && typeof content === 'string' ? content.split('\n\n') : [];
-
   const date = article.publishedAt || article.date;
-  const readTime = article.readTime || '5 min';
+  const readTime = article.readTime || '5 MIN';
 
   return (
-    <main className="min-h-screen">
-      <div className="max-w-screen-2xl mx-auto">
-        {/* Article Header */}
-        <FadeIn>
-          <div className="border-b-1px border-editorial-border">
-            <div className="grid grid-cols-1 md:grid-cols-[180px_1fr]">
-              {/* Meta Sidebar */}
-              <div className="p-6 md:p-8 border-b md:border-b-0 md:border-r-1px border-editorial-border">
-                <div className="space-y-6">
-                  {date && (
-                    <div>
-                      <h3 className="text-label mb-2">{t("날짜", "Date")}</h3>
-                      <p className="text-sm">
-                        {new Date(date).toLocaleDateString(language === 'ko' ? 'ko-KR' : 'en-US', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric'
-                        })}
-                      </p>
-                    </div>
-                  )}
-                  {article.category && (
-                    <div>
-                      <h3 className="text-label mb-2">{t("카테고리", "Category")}</h3>
-                      <p className="text-sm capitalize">{article.category}</p>
-                    </div>
-                  )}
-                  {readTime && (
-                    <div>
-                      <h3 className="text-label mb-2">{t("읽는 시간", "Read Time")}</h3>
-                      <p className="text-sm">{readTime}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
+    <div className="bg-white min-h-screen selection:bg-black selection:text-white pb-24">
+      <Masthead />
 
-              {/* Main Header */}
-              <div className="p-6 md:p-8">
-                <div className="max-w-3xl">
-                  {title && (
-                    <h1 className="headline-large mb-3">{title}</h1>
-                  )}
-                  {excerpt && (
-                    <p className="text-sm text-editorial-gray leading-[1.4]">{excerpt}</p>
-                  )}
-                </div>
-              </div>
-            </div>
+      <main className="boxed-container mt-[-1px]">
+        {/* Article Header Grid [150px | 1fr | 300px] */}
+        <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr_300px] divide-y lg:divide-y-0 lg:divide-x divide-editorial-border border-b-[1px] border-editorial-border">
+          {/* Meta Sidebar [150px] */}
+          <div className="p-6 space-y-10 bg-white">
+            <section>
+              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("발행", "LOGGED")}</h3>
+              <p className="type-header text-[12px]">
+                {new Date(date).toLocaleDateString(language === 'ko' ? 'ko-KR' : 'en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </p>
+            </section>
+            <section>
+              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("범주", "FIELD")}</h3>
+              <p className="type-header text-[12px]">{article.category || "RESEARCH"}</p>
+            </section>
+            <section>
+              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("소요", "LATENCY")}</h3>
+              <p className="type-header text-[12px]">{readTime}</p>
+            </section>
           </div>
-        </FadeIn>
 
-        {/* Cover Image (if exists) */}
-        {article.coverImage && (
-          <FadeIn delay={0.1}>
-            <div className="border-b-1px border-editorial-border p-6 md:p-8">
-              <div className="aspect-[21/9] bg-editorial-paper border-1px border-editorial-border flex items-center justify-center">
-                <span className="text-editorial-gray text-sm">
-                  [{t("커버 이미지", "Cover Image")}]
-                </span>
-              </div>
+          {/* Main Title Area [1fr] */}
+          <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+            <div className="type-mono opacity-30 mb-8 flex gap-4 font-bold">
+              <span>REF: {slug.toUpperCase()}</span>
+              <span>CORE: INTEL-RPT</span>
             </div>
-          </FadeIn>
-        )}
+            <h1 className="type-display text-2xl md:text-3xl mb-8">
+              {title}
+            </h1>
+            <p className="type-body text-base italic leading-snug border-l-4 border-black pl-6 opacity-70">
+              {excerpt}
+            </p>
+          </div>
 
-        {/* Article Content */}
-        {paragraphs.length > 0 && (
-          <FadeIn delay={0.2}>
-            <div className="border-b-1px border-editorial-border p-6 md:p-8">
-              <div className="max-w-3xl mx-auto">
-                <article className="prose prose-editorial">
-                  {paragraphs.map((paragraph: string, index: number) => (
-                    <p key={index} className="text-sm leading-[1.5] mb-4 last:mb-0">
-                      {paragraph}
-                    </p>
-                  ))}
-                </article>
-              </div>
-            </div>
-          </FadeIn>
-        )}
+          {/* Right Filler [300px] */}
+          <div className="hidden lg:block bg-white"></div>
+        </div>
 
-        {/* Navigation */}
-        <div className="border-t-1px border-editorial-border p-6 md:p-8">
-          <div className="flex justify-between items-center">
-            <Link
-              href="/article"
-              className="text-sm hover:underline flex items-center gap-2"
-            >
-              <span>←</span>
-              <span>{t("모든 아티클", "All Articles")}</span>
-            </Link>
-            <div className="flex gap-4">
-              <button className="text-sm text-editorial-gray hover:text-editorial-text">
-                {t("이전 글", "Previous")}
-              </button>
-              <span className="text-editorial-gray">|</span>
-              <button className="text-sm text-editorial-gray hover:text-editorial-text">
-                {t("다음 글", "Next")}
-              </button>
-            </div>
+        {/* Footer Navigation - Aligned to [150px | 1fr | 300px] */}
+        <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr_300px] divide-x divide-editorial-border h-24 border-b-[1px] border-editorial-border">
+          <Link href="/article" className="p-6 hover:bg-black hover:text-white transition-all flex items-center justify-center type-header group">
+            <span className="mr-0">←</span>
+          </Link>
+          <div className="flex items-center justify-center type-header uppercase tracking-widest opacity-20">
+            {t("기록 전체", "INDEX ALL")}
+          </div>
+          <div className="grid grid-cols-2 divide-x divide-editorial-border h-full">
+            <button className="p-6 hover:bg-black hover:text-white transition-all flex items-center justify-center type-header group">
+              <span className="text-[10px] opacity-30">{t("이전", "PREV")}</span>
+            </button>
+            <button className="p-6 hover:bg-black hover:text-white transition-all flex items-center justify-center type-header group">
+              <span className="text-[10px] opacity-30">{t("다음", "NEXT")}</span>
+            </button>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

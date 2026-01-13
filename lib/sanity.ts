@@ -22,6 +22,9 @@ export interface Project {
     ko: string;
     en: string;
   };
+  slug: {
+    current: string;
+  };
   date: string;
   category: {
     ko: string;
@@ -32,6 +35,17 @@ export interface Project {
     ko: string;
     en: string;
   };
+  client?: string;
+  year?: string;
+  role?: {
+    ko: string;
+    en: string;
+  };
+  specs?: {
+    ko: string[];
+    en: string[];
+  };
+  coverImage?: SanityImageAsset;
   images?: SanityImageAsset[];
   featured?: boolean;
 }
@@ -144,10 +158,16 @@ export const queries = {
   allProjects: `*[_type == "project"] | order(date desc) {
     _id,
     title,
+    slug,
     date,
     category,
     tags,
     description,
+    client,
+    year,
+    role,
+    specs,
+    coverImage,
     images,
     featured
   }`,
@@ -156,10 +176,16 @@ export const queries = {
   projectById: (id: string) => `*[_type == "project" && _id == "${id}"][0] {
     _id,
     title,
+    slug,
     date,
     category,
     tags,
     description,
+    client,
+    year,
+    role,
+    specs,
+    coverImage,
     images,
     featured
   }`,

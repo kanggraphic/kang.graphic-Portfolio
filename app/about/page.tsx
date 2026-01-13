@@ -10,8 +10,8 @@ const mockAbout: About = {
     en: "Kang Graphic"
   },
   role: {
-    ko: "편집 디자이너",
-    en: "Editorial Designer"
+    ko: "편집 디자이너 강동구",
+    en: "Editorial Designer Kang Dong-gu"
   },
   bio: {
     ko: "저는 시각 디자인과 리서치를 기반으로 작업하는 그래픽 디자이너입니다. 특히 복잡한 주제를 명확하고 아름답게 시각화하는 것에 관심이 있습니다.\n\n제 작업은 주로 디자인 리서치, 데이터 시각화, 그리고 편집 디자인을 중심으로 진행됩니다. 디자인은 단순히 아름다운 것을 만드는 것이 아니라, 복잡한 세계를 이해하고 전달하는 도구라고 믿습니다.",

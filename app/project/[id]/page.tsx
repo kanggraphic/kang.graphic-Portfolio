@@ -1,5 +1,5 @@
 import { sanityFetch, queries } from "@/lib/sanity";
-import Navigation from "@/components/Navigation";
+
 import ProjectDetailClient from "@/components/ProjectDetailClient";
 import { notFound } from "next/navigation";
 
@@ -34,7 +34,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
 
     return (
       <>
-        <Navigation />
+
         <ProjectDetailClient project={project} id={id} />
       </>
     );

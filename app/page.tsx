@@ -2,7 +2,7 @@ import { sanityFetch, queries, Project } from "@/lib/sanity";
 import HomeClient from "./HomeClient";
 
 // Mock data as fallback
-const mockProjects = [
+const mockProjects: Project[] = [
   {
     _id: "1",
     _type: "project" as const,
@@ -10,6 +10,7 @@ const mockProjects = [
     title: { ko: "Kao／Primavista 젤 세안", en: "Kao／Primavista Gel Cleanser" },
     category: { ko: "포토 프로덕션", en: "Photo Production" },
     tags: ["PHOTO PRODUCE", "GRAPHIC", "TALENT"],
+    slug: { current: "1" },
   },
   {
     _id: "2",
@@ -18,6 +19,7 @@ const mockProjects = [
     title: { ko: "MACNICA／「マクニカでくくる」GR제작", en: "MACNICA／GR Production" },
     category: { ko: "그래픽 디자인", en: "Graphic Design" },
     tags: ["PHOTO PRODUCE", "GRAPHIC", "TALENT"],
+    slug: { current: "2" },
   },
   {
     _id: "3",
@@ -26,6 +28,7 @@ const mockProjects = [
     title: { ko: "ORIX HOTELS & RESORTS／「온천편」「식사편」「객실편」", en: "ORIX HOTELS & RESORTS／Campaign" },
     category: { ko: "포토 프로덕션", en: "Photo Production" },
     tags: ["PHOTO PRODUCE", "GRAPHIC", "TALENT"],
+    slug: { current: "3" },
   },
   {
     _id: "4",
@@ -34,6 +37,7 @@ const mockProjects = [
     title: { ko: "MEDULLA／rebranding", en: "MEDULLA／rebranding" },
     category: { ko: "브랜딩", en: "Branding" },
     tags: ["PHOTO PRODUCE", "GRAPHIC"],
+    slug: { current: "4" },
   },
   {
     _id: "5",
@@ -42,6 +46,7 @@ const mockProjects = [
     title: { ko: "디지털 투발루 아이덴티티", en: "Digital Tuvalu Identity" },
     category: { ko: "비주얼 아이덴티티", en: "Visual Identity" },
     tags: ["GRAPHIC", "IDENTITY"],
+    slug: { current: "5" },
   },
   {
     _id: "6",
@@ -50,6 +55,7 @@ const mockProjects = [
     title: { ko: "Territory in Flux 편집 디자인", en: "Territory in Flux Editorial" },
     category: { ko: "에디토리얼", en: "Editorial" },
     tags: ["EDITORIAL", "PRINT"],
+    slug: { current: "6" },
   },
 ];
 

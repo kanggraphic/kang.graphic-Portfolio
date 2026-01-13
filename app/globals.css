@@ -13,143 +13,104 @@
     @apply border-editorial-border;
   }
 
-  body {
-    @apply bg-editorial-bg text-editorial-text antialiased;
-    font-family: var(--font-wanted);
+  html {
+    @apply bg-white;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  body {
+    @apply bg-white text-editorial-text antialiased;
+    font-family: var(--font-wanted);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold uppercase tracking-tight;
     font-family: var(--font-wanted);
   }
 }
 
 @layer utilities {
-  /* Table Grid System */
-  .table-grid {
-    @apply border border-editorial-border;
+
+  /* Boxed Container */
+  .boxed-container {
+    @apply max-w-[1200px] mx-auto border-x-[1px] border-transparent bg-white;
   }
 
-  .table-cell {
-    @apply border-r border-b border-editorial-border p-4 md:p-6;
+  /* Core Typography Tokens - Limited to 4 Main Styles */
+
+  /* Core Typography Tokens - STRICTLY 4 STYLES - Consolidated & Reduced */
+
+  /* 1. Standard Header (Navigation, Project Titles) - Matches KANG GRAPHIC tracking */
+  .type-header {
+    @apply font-bold text-sm lg:text-base leading-tight tracking-tight uppercase;
+    font-family: var(--font-wanted);
   }
 
-  .table-cell:last-child {
-    @apply border-r-0;
+  /* 2. Body Text (Descriptions, Articles) */
+  .type-body {
+    @apply font-normal text-[13px] lg:text-[14px] leading-relaxed tracking-normal;
+    font-family: var(--font-wanted);
   }
 
-  .table-row:last-child .table-cell {
-    @apply border-b-0;
+  /* 3. Utilities / Meta (Dates, Tags) - NO WIDE TRACKING */
+  .type-mono {
+    @apply font-mono text-[10px] lg:text-[11px] uppercase tracking-normal leading-none;
   }
 
-  /* Vertical Typography */
-  .vertical-text {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
+  /* 4. Display (Page Titles) - Reduced size, strict alignment */
+  .type-display {
+    @apply font-bold text-xl lg:text-2xl leading-none tracking-tight uppercase;
+    font-family: var(--font-wanted);
   }
 
-  .vertical-text-upright {
-    writing-mode: vertical-rl;
-    text-orientation: upright;
+  /* Utilities for consistency */
+  .border-thin {
+    @apply border-[1px] border-editorial-border;
   }
 
-  /* Border utilities */
-  .border-1px {
-    border-width: 1px;
+  .border-b-thin {
+    @apply border-b-[1px] border-editorial-border;
   }
 
-  .border-r-1px {
-    border-right-width: 1px;
+  .border-r-thin {
+    @apply border-r-[1px] border-editorial-border;
   }
 
-  .border-b-1px {
-    border-bottom-width: 1px;
+  .border-l-thin {
+    @apply border-l-[1px] border-editorial-border;
   }
 
-  .border-t-1px {
-    border-top-width: 1px;
+  .table-row-hover {
+    @apply hover:bg-black hover:text-white transition-colors duration-75 cursor-pointer;
   }
 
-  .border-l-1px {
-    border-left-width: 1px;
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
-  .divider-vertical {
-    border-right-width: 1px;
-    border-color: theme('colors.editorial.border');
+  .animate-marquee {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
   }
 
-  .divider-horizontal {
-    border-bottom-width: 1px;
-    border-color: theme('colors.editorial.border');
+  .marquee-container {
+    @apply overflow-hidden whitespace-nowrap bg-white border-b-[1px] border-editorial-border py-1.5 type-mono;
   }
 
-  /* Typography Scale - Dense & Compact */
-  .text-editorial {
-    @apply text-editorial-text leading-[1.4] tracking-tight;
-    font-size: 0.875rem;
-  }
-
-  .text-label {
-    @apply text-[10px] uppercase tracking-[0.08em] font-medium leading-[1.3];
-  }
-
-  .text-index {
-    @apply text-xs font-medium leading-[1.3];
-  }
-
-  /* Reduced headline sizes - no large text */
-  .headline-xl {
-    @apply font-wanted font-medium text-xl md:text-2xl leading-[1.2] tracking-[-0.01em];
-  }
-
-  .headline-large {
-    @apply font-wanted font-medium text-lg md:text-xl leading-[1.25] tracking-[-0.01em];
-  }
-
-  .headline-medium {
-    @apply font-wanted font-medium text-base md:text-lg leading-[1.3] tracking-tight;
-  }
-
-  .headline-small {
-    @apply font-wanted font-medium text-sm md:text-base leading-[1.35] tracking-tight;
-  }
-
-  .body-large {
-    @apply text-sm md:text-base leading-[1.4] tracking-tight;
-  }
-
-  .body {
-    @apply text-xs md:text-sm leading-[1.45] tracking-tight;
-  }
-
-  .caption {
-    @apply text-[10px] text-editorial-gray uppercase tracking-wider leading-[1.3];
-  }
-
-  /* Layout utilities */
-  .editorial-sidebar {
-    @apply w-full lg:w-64 xl:w-80;
-  }
-
-  .editorial-main {
-    @apply flex-1 min-w-0;
-  }
-
-  .content-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1px bg-editorial-border;
-  }
-
-  .content-grid > * {
-    @apply bg-editorial-bg;
-  }
-
-  /* Divide utilities */
-  .divide-y-1px > * + * {
-    border-top-width: 1px;
-    border-color: theme('colors.editorial.border');
-  }
-
-  .divide-editorial-border > * + * {
-    border-color: theme('colors.editorial.border');
+  /* Grid Alignment Helpers */
+  .grid-layout {
+    @apply grid grid-cols-1 lg:grid-cols-[1fr_300px] divide-y lg:divide-y-0 lg:divide-x divide-editorial-border;
   }
 }

@@ -1,5 +1,5 @@
 import { sanityFetch, queries } from "@/lib/sanity";
-import Navigation from "@/components/Navigation";
+
 import ArticleDetailClient from "@/components/ArticleDetailClient";
 import { notFound } from "next/navigation";
 
@@ -33,10 +33,7 @@ export default async function ArticleDetail({ params }: { params: { slug: string
     }
 
     return (
-      <>
-        <Navigation />
-        <ArticleDetailClient article={article} slug={slug} />
-      </>
+      <ArticleDetailClient article={article} slug={slug} />
     );
   } catch (error) {
     console.log('Failed to fetch article:', error);
