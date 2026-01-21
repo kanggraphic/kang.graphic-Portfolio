@@ -4,14 +4,23 @@
 
 @import url('https://cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-ligature-full.css');
 
+@font-face {
+  font-family: 'OnulSamhwagothic';
+  src: url('/fonts/OnulSamhwagothic-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer base {
   :root {
+    --font-samhwa: "OnulSamhwagothic", "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
     --font-wanted: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
   }
 
   * {
     @apply border-editorial-border;
   }
+
 
   html {
     @apply bg-white;
@@ -46,24 +55,32 @@
 
   /* Core Typography Tokens - STRICTLY 4 STYLES - Consolidated & Reduced */
 
-  /* 1. Standard Header (Navigation, Project Titles) - Matches KANG GRAPHIC tracking */
+  /* 1. Standard Header (Navigation, Project Titles) */
   .type-header {
     @apply font-bold text-sm lg:text-base leading-tight tracking-tight uppercase;
     font-family: var(--font-wanted);
   }
 
-  /* 2. Body Text (Descriptions, Articles) */
+  /* 2. Body Text (General UI) - Reverted to Pretendard */
   .type-body {
     @apply font-normal text-[13px] lg:text-[14px] leading-relaxed tracking-normal;
     font-family: var(--font-wanted);
   }
 
-  /* 3. Utilities / Meta (Dates, Tags) - NO WIDE TRACKING */
+  /* 2b. Editorial Content (The "Bon-mun") - Samhwagothic */
+  .type-content {
+    font-family: var(--font-samhwa);
+    font-weight: normal;
+    /* Specific metrics for the serif/editorial look */
+    @apply text-[15px] lg:text-[16px] leading-[1.75] tracking-normal;
+  }
+
+  /* 3. Utilities / Meta (Dates, Tags) */
   .type-mono {
     @apply font-mono text-[10px] lg:text-[11px] uppercase tracking-normal leading-none;
   }
 
-  /* 4. Display (Page Titles) - Reduced size, strict alignment */
+  /* 4. Display (Page Titles) - Reverted to Pretendard */
   .type-display {
     @apply font-bold text-xl lg:text-2xl leading-none tracking-tight uppercase;
     font-family: var(--font-wanted);

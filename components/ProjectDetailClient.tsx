@@ -44,26 +44,29 @@ export default function ProjectDetailClient({ project, id }: ProjectDetailProps)
         {/* Project Title & Meta - Table Style [150px | 1fr | 300px] */}
         <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr_300px] divide-y lg:divide-y-0 lg:divide-x divide-editorial-border border-b-[1px] border-editorial-border">
           {/* Left: Date/Year Meta [150px] */}
-          <div className="p-8 type-mono font-bold opacity-30">
-            {project.date}
+          <div className="p-6 lg:p-8 type-mono font-bold opacity-30 sticky top-0">
+            {project.date ? new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }).toUpperCase() : project.year}
           </div>
 
           {/* Center: Title & Description [1fr] */}
-          <div className="p-8 md:p-12 space-y-8">
-            <div className="flex items-center gap-4 type-mono opacity-40 mb-2">
-              <span>{category}</span>
+          <div className="p-6 md:p-12 lg:p-16 space-y-8 bg-white">
+            <div className="flex flex-col gap-2">
+              <p className="type-mono opacity-40 font-bold tracking-widest">
+                {category}
+              </p>
+              <h1 className="type-display text-2xl lg:text-3xl leading-none">
+                {title}
+              </h1>
             </div>
-            <h1 className="type-display">
-              {title}
-            </h1>
-            <p className="type-body max-w-2xl leading-relaxed whitespace-pre-line">
-              {description || "[SPECIFICATION DATA PENDING]"}
-            </p>
+
+            <div className="type-content opacity-90 whitespace-pre-line max-w-2xl">
+              {description || ""}
+            </div>
 
             {tags.length > 0 && (
-              <div className="flex flex-wrap gap-x-4 gap-y-2 pt-4">
+              <div className="flex flex-wrap gap-x-4 gap-y-2 pt-4 border-t-[1px] border-editorial-border/40 w-full max-w-sm">
                 {tags.map(tag => (
-                  <span key={tag} className="type-mono text-[11px] uppercase opacity-40 font-bold tracking-wider">
+                  <span key={tag} className="type-mono text-[10px] opacity-40">
                     #{tag}
                   </span>
                 ))}
@@ -72,38 +75,39 @@ export default function ProjectDetailClient({ project, id }: ProjectDetailProps)
           </div>
 
           {/* Right: Info & Spec [300px] */}
-          <div className="p-8 md:p-10 bg-white space-y-10">
+          {/* Aligned carefully to valid Editorial Design standards */}
+          <div className="p-6 md:p-10 bg-white space-y-12">
             <section>
-              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("세부 정보", "INFO & SPEC")}</h3>
-              <dl className="grid grid-cols-1 divide-y divide-editorial-border">
+              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("세부 정보", "DETAILS")}</h3>
+              <dl className="space-y-6">
                 {project.client && (
-                  <div className="py-3 flex justify-between items-baseline">
-                    <dt className="type-mono opacity-40">{t("클라이언트", "CLIENT")}</dt>
-                    <dd className="type-header">{project.client}</dd>
+                  <div className="space-y-1">
+                    <dt className="type-mono opacity-40 font-bold">{t("클라이언트", "CLIENT")}</dt>
+                    <dd className="type-header text-sm">{project.client}</dd>
                   </div>
                 )}
                 {role && (
-                  <div className="py-3 flex justify-between items-baseline">
-                    <dt className="type-mono opacity-40">{t("역할", "ROLE")}</dt>
-                    <dd className="type-header text-right max-w-[180px]">{role}</dd>
+                  <div className="space-y-1">
+                    <dt className="type-mono opacity-40 font-bold">{t("역할", "ROLE")}</dt>
+                    <dd className="type-header text-sm">{role}</dd>
                   </div>
                 )}
                 {project.year && (
-                  <div className="py-3 flex justify-between items-baseline">
-                    <dt className="type-mono opacity-40">{t("연도", "YEAR")}</dt>
-                    <dd className="type-header">{project.year}</dd>
+                  <div className="space-y-1">
+                    <dt className="type-mono opacity-40 font-bold">{t("연도", "YEAR")}</dt>
+                    <dd className="type-header text-sm">{project.year}</dd>
                   </div>
                 )}
               </dl>
             </section>
 
             {specs.length > 0 && (
-              <section>
-                <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("사양", "SPECIFICATIONS")}</h3>
+              <section className="pt-8 border-t border-editorial-border/30">
+                <h3 className="type-mono mb-6 opacity-40 font-bold">{t("사양", "SPECIFICATIONS")}</h3>
                 <ul className="space-y-2">
                   {specs.map((spec, i) => (
-                    <li key={i} className="type-body text-[13px] flex gap-3 italic leading-tight">
-                      <span className="type-mono opacity-20 mt-0.5 font-bold">{String(i + 1).padStart(2, '0')}</span>
+                    <li key={i} className="type-body text-[12px] flex gap-3 leading-tight opacity-80">
+                      <span className="type-mono opacity-30 mt-0.5">{String(i + 1).padStart(2, '0')}</span>
                       {spec}
                     </li>
                   ))}
@@ -113,37 +117,49 @@ export default function ProjectDetailClient({ project, id }: ProjectDetailProps)
           </div>
         </div>
 
-        {/* Images Hub - Full width but boxed */}
-        <div className="divide-y divide-editorial-border border-b-[1px] border-editorial-border bg-white">
-          {images.length > 0 ? (
-            images.map((image, index) => {
-              const imageUrl = getSanityImageUrl(image, 2000);
-              return (
-                <FadeIn key={index} className="p-8 md:p-16 flex flex-col items-center">
-                  <div className="relative w-full aspect-[4/3] max-w-4xl bg-white border-[1px] border-editorial-border grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden shadow-sm">
-                    {imageUrl && (
-                      <Image
-                        src={imageUrl}
-                        alt={`${title} - ${index + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 1200px) 100vw, 1200px"
-                      />
-                    )}
+
+        {/* Images Hub - Clean, Static, No Animation */}
+        <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr_300px] lg:divide-x divide-editorial-border border-b-[1px] border-editorial-border bg-white">
+          <div className="hidden lg:block bg-zinc-50/10"></div>
+
+          <div className="divide-y divide-editorial-border">
+            {images.length > 0 ? (
+              images.map((image, index) => {
+                const imageUrl = getSanityImageUrl(image, 2400);
+                return (
+                  <div key={index} className="p-0 flex flex-col">
+                    <div className="relative w-full bg-white">
+                      {imageUrl && (
+                        <Image
+                          src={imageUrl}
+                          alt={`${title} - ${index + 1}`}
+                          width={2400}
+                          height={1600}
+                          className="w-full h-auto object-cover block"
+                          sizes="(max-width: 1200px) 100vw, 900px"
+                          priority={index === 0}
+                        />
+                      )}
+                    </div>
+                    {/* Caption area if needed, otherwise minimal padding */}
+                    <div className="p-4 flex justify-between items-center type-mono opacity-30 font-bold border-t-[1px] border-editorial-border/20">
+                      <span>FIG. {String(index + 1).padStart(2, '0')}</span>
+                      <span>POS: {index + 1} / {images.length}</span>
+                    </div>
                   </div>
-                  <div className="w-full max-w-4xl mt-6 flex justify-between items-start type-mono opacity-30 font-bold">
-                    <span>FIG. {String(index + 1).padStart(2, '0')}</span>
-                    <span className="text-right">POS: {index + 1} / {images.length}</span>
-                  </div>
-                </FadeIn>
-              );
-            })
-          ) : (
-            <div className="p-24 text-center type-mono italic opacity-30">
-              --- NO VISUAL ASSETS AVAILABLE ---
-            </div>
-          )}
+                );
+              })
+            ) : (
+              <div className="p-24 text-center type-mono italic opacity-20">
+                --- NO VISUAL ASSETS AVAILABLE ---
+              </div>
+            )}
+          </div>
+
+          <div className="hidden lg:block bg-white"></div>
         </div>
+
+
 
         {/* Pagination Hub - Aligned to [150px | 1fr | 300px] */}
         <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr_300px] divide-x divide-editorial-border h-24 border-b-[1px] border-editorial-border">

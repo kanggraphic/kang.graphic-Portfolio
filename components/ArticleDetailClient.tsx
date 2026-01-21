@@ -30,45 +30,55 @@ export default function ArticleDetailClient({ article, slug }: { article: any; s
       <main className="boxed-container mt-[-1px]">
         {/* Article Header Grid [150px | 1fr | 300px] */}
         <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr_300px] divide-y lg:divide-y-0 lg:divide-x divide-editorial-border border-b-[1px] border-editorial-border">
-          {/* Meta Sidebar [150px] */}
-          <div className="p-6 space-y-10 bg-white">
-            <section>
-              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("발행", "LOGGED")}</h3>
-              <p className="type-header text-[12px]">
-                {new Date(date).toLocaleDateString(language === 'ko' ? 'ko-KR' : 'en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric'
-                })}
-              </p>
-            </section>
-            <section>
-              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("범주", "FIELD")}</h3>
-              <p className="type-header text-[12px]">{article.category || "RESEARCH"}</p>
-            </section>
-            <section>
-              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("소요", "LATENCY")}</h3>
-              <p className="type-header text-[12px]">{readTime}</p>
-            </section>
+          {/* Left Meta Sidebar [150px] */}
+          <div className="p-6 lg:p-8 type-mono font-bold opacity-30 sticky top-0">
+            {date ? new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }).toUpperCase() : ''}
           </div>
 
           {/* Main Title Area [1fr] */}
-          <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-            <div className="type-mono opacity-30 mb-8 flex gap-4 font-bold">
-              <span>REF: {slug.toUpperCase()}</span>
-              <span>CORE: INTEL-RPT</span>
+          <div className="p-6 md:p-12 lg:p-16 flex flex-col justify-start bg-white min-h-[400px] space-y-12">
+            <div className="space-y-8">
+              <div className="flex flex-col gap-2">
+                <p className="type-mono opacity-40 font-bold tracking-widest">
+                  {article.category || "ARTICLE"}
+                </p>
+                <h1 className="type-display text-2xl lg:text-3xl leading-none">
+                  {title}
+                </h1>
+              </div>
+
+              <div className="type-content opacity-90 leading-relaxed border-l-[1px] border-black/10 pl-6 lg:pl-8 italic max-w-2xl">
+                {excerpt}
+              </div>
             </div>
-            <h1 className="type-display text-2xl md:text-3xl mb-8">
-              {title}
-            </h1>
-            <p className="type-body text-base italic leading-snug border-l-4 border-black pl-6 opacity-70">
-              {excerpt}
-            </p>
+
+            {/* Content Body - The 'Bon-mun' */}
+            <div className="type-content space-y-6 max-w-2xl leading-relaxed">
+              {/* Just rendering paragraphs simply for now, pretending this is the full content block */}
+              {paragraphs.map((p: string, i: number) => (
+                <p key={i} className="mb-6">{p}</p>
+              ))}
+            </div>
           </div>
 
-          {/* Right Filler [300px] */}
-          <div className="hidden lg:block bg-white"></div>
+          {/* Right Meta [300px] */}
+          <div className="p-6 md:p-10 space-y-12 bg-white">
+            <section>
+              <h3 className="type-mono mb-6 border-b-[1px] border-black pb-1 font-bold">{t("세부 정보", "DETAILS")}</h3>
+              <dl className="space-y-6">
+                <div className="space-y-1">
+                  <dt className="type-mono opacity-40 font-bold">{t("범주", "FIELD")}</dt>
+                  <dd className="type-header text-sm">{article.category || "RESEARCH"}</dd>
+                </div>
+                <div className="space-y-1">
+                  <dt className="type-mono opacity-40 font-bold">{t("소요", "LATENCY")}</dt>
+                  <dd className="type-header text-sm">{readTime}</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
         </div>
+
 
         {/* Footer Navigation - Aligned to [150px | 1fr | 300px] */}
         <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr_300px] divide-x divide-editorial-border h-24 border-b-[1px] border-editorial-border">

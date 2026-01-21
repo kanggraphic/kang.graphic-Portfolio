@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'article',
@@ -10,8 +10,8 @@ export default defineType({
       title: 'Title',
       type: 'object',
       fields: [
-        {name: 'ko', type: 'string', title: 'Korean'},
-        {name: 'en', type: 'string', title: 'English'},
+        { name: 'ko', type: 'string', title: 'Korean' },
+        { name: 'en', type: 'string', title: 'English' },
       ],
       validation: (Rule) => Rule.required(),
     }),
@@ -34,24 +34,22 @@ export default defineType({
     defineField({
       name: 'category',
       title: 'Category',
+      type: 'reference',
+      to: [{ type: 'category' }],
+    }),
+    defineField({
+      name: 'author',
+      title: 'Author',
       type: 'string',
-      options: {
-        list: [
-          {title: 'Design', value: 'design'},
-          {title: 'Development', value: 'development'},
-          {title: 'Editorial', value: 'editorial'},
-          {title: 'Photography', value: 'photography'},
-          {title: 'Branding', value: 'branding'},
-        ],
-      },
+      description: 'Article author name',
     }),
     defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'object',
       fields: [
-        {name: 'ko', type: 'text', title: 'Korean', rows: 3},
-        {name: 'en', type: 'text', title: 'English', rows: 3},
+        { name: 'ko', type: 'text', title: 'Korean', rows: 3 },
+        { name: 'en', type: 'text', title: 'English', rows: 3 },
       ],
     }),
     defineField({
@@ -72,10 +70,10 @@ export default defineType({
           type: 'array',
           title: 'Korean',
           of: [
-            {type: 'block'},
+            { type: 'block' },
             {
               type: 'image',
-              options: {hotspot: true},
+              options: { hotspot: true },
             },
           ],
         },
@@ -84,14 +82,21 @@ export default defineType({
           type: 'array',
           title: 'English',
           of: [
-            {type: 'block'},
+            { type: 'block' },
             {
               type: 'image',
-              options: {hotspot: true},
+              options: { hotspot: true },
             },
           ],
         },
       ],
+    }),
+    defineField({
+      name: 'visibility',
+      title: 'Visibility',
+      type: 'boolean',
+      description: 'If false, article will be hidden from the website',
+      initialValue: true,
     }),
   ],
   preview: {
@@ -100,11 +105,12 @@ export default defineType({
       titleEn: 'title.en',
       date: 'publishedAt',
       media: 'coverImage',
+      visible: 'visibility',
     },
     prepare(selection) {
-      const {titleKo, titleEn, date, media} = selection
+      const { titleKo, titleEn, date, media, visible } = selection
       return {
-        title: titleKo || titleEn,
+        title: `${visible === false ? '🔒 ' : ''}${titleKo || titleEn}`,
         subtitle: date ? new Date(date).toLocaleDateString() : 'No date',
         media,
       }
